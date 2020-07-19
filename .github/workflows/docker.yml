@@ -1,0 +1,13 @@
+name: Docker
+
+on: push
+
+jobs:
+  build_job:
+    runs-on: ubuntu-latest
+    name: Build Container
+    steps:
+    - name: Build Container
+      runs:
+        using: 'docker'
+        image: 'Dockerfile'
