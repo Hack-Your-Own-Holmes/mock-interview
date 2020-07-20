@@ -14,7 +14,7 @@ const WebcamStreamCapture = () => {
         });
         mediaRecorderRef.current.addEventListener(
             "dataavailable",
-            handleDataAvailable
+            handleDataAvailable,
         );
         mediaRecorderRef.current.start();
     }, [webcamRef, setCapturing, mediaRecorderRef]);
@@ -25,7 +25,7 @@ const WebcamStreamCapture = () => {
                 setRecordedChunks((prev) => prev.concat(data));
             }
         },
-        [setRecordedChunks]
+        [setRecordedChunks],
     );
 
     const handleStopCaptureClick = React.useCallback(() => {
@@ -53,11 +53,13 @@ const WebcamStreamCapture = () => {
     return (
         <>
             <Webcam audio={true} ref={webcamRef} />
-            {capturing ? (
-                <button onClick={handleStopCaptureClick}>Stop Capture</button>
-            ) : (
-                <button onClick={handleStartCaptureClick}>Start Capture</button>
-            )}
+            {capturing
+                ? (
+                    <button onClick={handleStopCaptureClick}>Stop Capture</button>
+                )
+                : (
+                    <button onClick={handleStartCaptureClick}>Start Capture</button>
+                )}
             {recordedChunks.length > 0 && (
                 <button onClick={handleDownload}>Download</button>
             )}
