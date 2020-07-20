@@ -1,21 +1,19 @@
 import React from "react";
-import "./styles/main.css";
-import { getQuestions } from "./services/questions";
-import videoStream from "./services/videoStream";
-import WebcamStreamCapture from "./services/videoStream";
+import "./styles/globals.css";
+import WelcomeScreen from "./scenes/WelcomeScreen";
+import { ThemeProvider } from "styled-components";
+import { themes } from "./styles/theme";
+import { Switch, Route } from "react-router-dom";
 
 function App() {
-  const handleGet = () => {
-    getQuestions().then((questions) => {
-      console.log(questions);
-    });
-  };
-  return (
-    <div>
-      <button onClick={handleGet}>Get questions</button>
-      <WebcamStreamCapture />
-    </div>
-  );
+	return (
+		<ThemeProvider theme={themes}>
+			<Switch>
+				<Route exact path='/' component={WelcomeScreen} />
+				<div>{/* <WebcamStreamCapture /> */}</div>
+			</Switch>
+		</ThemeProvider>
+	);
 }
 
 export default App;
