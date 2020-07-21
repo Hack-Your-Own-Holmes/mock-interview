@@ -1,8 +1,12 @@
 import styled from "styled-components";
 
-export default styled.button`
-	width: ${150 / 16}rem;
+export default styled.a`
+	width: ${176 / 16}rem;
 	height: ${50 / 16}rem;
+	display: block;
+	text-decoration: none;
+	text-align: center;
+	line-height: ${50 / 16}rem;
 
 	color: ${(props) =>
         props.color === "dark" || props.color === "primary" ? "white" : "black"};
