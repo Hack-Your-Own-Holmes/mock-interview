@@ -5,7 +5,6 @@ export default styled.ul`
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-
     li {
         list-style: none;
         width: 100%;
@@ -13,7 +12,6 @@ export default styled.ul`
         text-align: center;
         display: flex;
         justify-content: center;
-
         div{
             border: none;
             width: ${25/16}rem;
@@ -23,14 +21,13 @@ export default styled.ul`
             line-height: ${25/16}rem;
             background-color: ${(props)=> props.theme.colors.secondary};
             position:relative;
+            cursor:pointer;
             
-
             &:hover {
                 span {
                     visibility: visible;
                 }
             }
-
             span {
                 position: absolute;
                 background-color: ${(props)=> props.theme.colors.dark};
@@ -43,7 +40,6 @@ export default styled.ul`
                 border-radius: ${10/16}rem;
             }
         }
-
         &.done {
             & + li::before {
                 background-color: ${(props) => props.theme.colors.success};
@@ -51,9 +47,7 @@ export default styled.ul`
             div {
                 background-color: ${(props) => props.theme.colors.success};
             }
-
         }        
-
         &::before {
             content: "";
             width: 100%;
@@ -70,5 +64,4 @@ export default styled.ul`
             content: none;
         }
     }
-
 `;

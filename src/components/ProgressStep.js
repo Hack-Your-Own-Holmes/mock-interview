@@ -1,30 +1,36 @@
 import React from "react";
-import Progress from "../elements/Progress";
-import StepProgressBar from 'react-step-progress';
-import 'react-step-progress/dist/index.css';
+import Progress from "../styledElements/Progress";
+import {useSelector} from "react-redux";
 
-// steps should be an array of objects with properties 
-// question:string,answered:boolean
+const ProgressStep = ({handleClick,clickable}) => {
+    const {questions} = useSelector(({questions})=> ({questions}));
 
-
-const ProgressStep = ({steps}) => {
-    return steps && Array.isArray(steps) 
+    return questions
         ? (
-            <div>
+            <>
                 <Progress>
-                    {steps.map((step,index)=>{
+                    {questions?.map((question,index)=>{
                         return(
-                            <li className={step.answered ? "done" : ""} key={index}>
-                                <div>
-                                    <span>{step.question}</span>
+                            <li className={question.answered 
+                                ? "done" 
+                                : ""
+                            } key={index}>
+                                <div onClick={clickable 
+                                    ? ()=> {
+                                        handleClick(question.id);
+                                    }
+                                    : null
+                                }>
+                                    <span>{question.title}</span>
                                 </div>
                             </li>
                         );
                     })}
                 </Progress>
-            </div>
+            </>
         )
         : null;
 };
+
 
 export default ProgressStep;

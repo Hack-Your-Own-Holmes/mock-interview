@@ -5,7 +5,7 @@ export const themes = {
         success: "#28a745",
         danger: "#dc3545",
         warning: "#ffc107",
-        info: "#f8f9fa",
+        info: "#17a2b8",
         dark: "#343a40",
         white: "#ffffff",
         light: "#f8f9fa",
