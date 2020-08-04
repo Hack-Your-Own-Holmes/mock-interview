@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../elements/Button";
 import {Welcome} from "../elements/Welcome";
+import {Link} from "react-router-dom";
 
 const WelcomeScreen = () => {
     return (
@@ -10,7 +11,7 @@ const WelcomeScreen = () => {
         See how you would do during an interview by practicing with our
         interview questions
             </p>
-            <Button color="primary">Let's Go</Button>
+            <Button to="/interview" as={Link} color="primary">Let's Go</Button>
         </Welcome>
     );
 };
