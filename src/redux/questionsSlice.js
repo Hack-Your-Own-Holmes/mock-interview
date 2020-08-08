@@ -1,13 +1,12 @@
 import {createSlice,createAsyncThunk} from "@reduxjs/toolkit";
+import {getQuestions} from "../services/questions";
 
-export const getQuestions = createAsyncThunk("getQuestions", async ()=>{
-    // aws function will be called here and return array
-    // of questions;
-    const response = await window.fetch("http://localhost:3001/questions");
-    const questionsArr = await response.json();
-    const questions = questionsArr.map((question)=>{
-        return {...question,answered:false,blob:null};
-    });
+export const setupQuestions = createAsyncThunk("setupQuestions;", async ()=>{
+    const {personal} = await getQuestions();
+    const questions = [];
+    for(const id in personal){
+        questions.push({id: Number(id),title:personal[id],answered:false,blob:null});
+    }
     return questions;
 });
 
@@ -30,9 +29,9 @@ const questionsSlice = createSlice({
         clearQuestions: () => [],
     },
     extraReducers:{
-        [getQuestions.fulfilled]: (state,action) => action.payload,
+        [setupQuestions.fulfilled]: (state,action) => action.payload,
     }
 });
 
-export const {updateQuestion} = questionsSlice.actions;
+export const {updateQuestion,clearQuestions} = questionsSlice.actions;
 export default questionsSlice;

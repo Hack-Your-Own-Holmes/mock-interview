@@ -4,14 +4,14 @@ import Button from "../styledElements/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {updateQuestion} from "../redux/questionsSlice";
 import {increment} from "../redux/questionNumberSlice";
-import {showTitle, removeTitle} from "../redux/questionTitleSlice";
+import {showNotif, hideNotif} from "../redux/notification";
 import {useHistory} from "react-router-dom";
 import Loader from "react-loader-spinner";
 
 // only problem left is react warning of state updating on unmount when redirect
 // to /review
 
-const Stream = ({setIsTitleOpen}) => {
+const Stream = ({setIsOpen}) => {
     const [startedInterview, setStartedInterview] = useState(false);
     const [blob, setBlob] = useState({});
     const [videoLoaded, setVideoLoaded] = useState(false);
@@ -31,12 +31,12 @@ const Stream = ({setIsTitleOpen}) => {
             questionNumber: questionNumber - 1,
         }));
         dispatch(
-            showTitle(questions.find((question) => question.id === questionNumber)),
+            showNotif(questions.find((question) => question.id === questionNumber)?.title),
         );
         setTimeout(() => {
-            setIsTitleOpen(false);
+            setIsOpen(false);
             setTimeout(() => {
-                dispatch(removeTitle());
+                dispatch(hideNotif());
             }, 1100);
         }, 3000);
     }, [blob]);
@@ -67,7 +67,7 @@ const Stream = ({setIsTitleOpen}) => {
         handleStopRecording();
         dispatch(increment());
         if (questionNumber <= questions.length) {
-            setIsTitleOpen(true);
+            setIsOpen(true);
             handleStartRecording();
         }
     };
@@ -115,15 +115,15 @@ const Stream = ({setIsTitleOpen}) => {
                                 setStartedInterview(true);
                                 handleStartRecording();
                                 dispatch(
-                                    showTitle(
-                                        questions.find((question) => question.id === questionNumber),
+                                    showNotif(
+                                        questions.find((question) => question.id === questionNumber)?.title,
                                     ),
                                 );
-                                setIsTitleOpen(true);
+                                setIsOpen(true);
                                 setTimeout(() => {
-                                    setIsTitleOpen(false);
+                                    setIsOpen(false);
                                     setTimeout(() => {
-                                        dispatch(removeTitle());
+                                        dispatch(hideNotif());
                                     }, 1100);
                                 }, 3000);
                             }}
