@@ -5,12 +5,12 @@ import {
 } from "@reduxjs/toolkit";
 import questionNumberSlice from "./questionNumberSlice";
 import questionsSlice from "./questionsSlice";
-import questionTitleSlice from "./questionTitleSlice";
+import notificationSlice from "./notification";
 
 const rootReducer = combineReducers({
     [questionNumberSlice.name]:questionNumberSlice.reducer,
     [questionsSlice.name]:questionsSlice.reducer,
-    [questionTitleSlice.name]:questionTitleSlice.reducer,
+    [notificationSlice.name]:notificationSlice.reducer,
 });
 
 const store = configureStore({
