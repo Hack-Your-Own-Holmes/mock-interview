@@ -1,26 +1,26 @@
 import React,{useEffect, useState} from 'react';
 import ProgressStep from "../components/ProgressStep";
-import {getQuestions} from "../redux/questionsSlice";
+import {setupQuestions} from "../redux/questionsSlice";
 import VideoStream from "../components/VideoStream";
 import store from "../redux/store";
 import Interview from "../styledElements/Interview";
-import QuestionTitle from "../styledElements/QuestionTitle";
+import Notification from "../styledElements/Notification";
 import {useSelector} from "react-redux";
 
 const InterviewScreen = () => {
     useEffect(()=>{
-        store.dispatch(getQuestions());
+        store.dispatch(setupQuestions());
     },[]);
-    const questionTitle = useSelector((state)=> state.questionTitle);
-    const [IsTitleOpen, setIsTitleOpen] = useState(false);
+    const {notification} = useSelector((state)=> state);
+    const [isOpen, setIsOpen] = useState(false);
     
     return (
         <Interview>
-            <QuestionTitle IsTitleOpen={IsTitleOpen}>
-                {questionTitle}
-            </QuestionTitle>
+            <Notification isOpen={isOpen}>
+                {notification}
+            </Notification>
             <ProgressStep />
-            <VideoStream setIsTitleOpen={setIsTitleOpen} />
+            <VideoStream setIsOpen={setIsOpen} />
         </Interview>
     );
 };

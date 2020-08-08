@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import ProgressStep from "../components/ProgressStep";
 import {useSelector,useDispatch} from "react-redux";
 import {useHistory,Redirect} from "react-router-dom";
@@ -6,18 +6,29 @@ import VideoPlayback from "../components/VideoPlayback";
 import {reset} from "../redux/questionNumberSlice";
 import Review from "../styledElements/Review";
 import Button from '../styledElements/Button';
+import {showNotif,hideNotif} from "../redux/notification";
+import Notification from "../styledElements/Notification";
 
 const ReviewScreen = () => {
-    const [question,setQuestion]=React.useState({});
-    const {questions} = useSelector(({questions})=> ({questions}));
+    const [question,setQuestion]= useState({});
+    const [isOpen, setIsOpen] = useState(false);
+    const {questions,notification} = useSelector(({questions,notification})=> ({questions,notification}));
     const dispatch = useDispatch();
-    const someFunc=(id=1)=>{
+    const handleClick=(id=1)=>{
         setQuestion(questions.find((question)=> question.id === id));
     };
     const history = useHistory();
     useEffect(()=>{
         dispatch(reset());
-        someFunc();
+        handleClick();
+        dispatch(showNotif("Click the slider on top to review your questions"));
+        setTimeout(()=>{
+            setIsOpen(false);
+            setTimeout(()=>{
+                dispatch(hideNotif());
+            },1100);
+        },2000);
+        
        
     },[]);
 
@@ -46,7 +57,10 @@ const ReviewScreen = () => {
 
     return (
         <Review>
-            <ProgressStep someFunc={someFunc} clickable={true} />
+            <ProgressStep handleClick={handleClick} clickable={true} />
+            <Notification isOpen={isOpen}>
+                {notification}
+            </Notification>
             <VideoPlayback blob={question?.blob} />
             <div className="buttons">
                 <Button onClick={downloadAll}
