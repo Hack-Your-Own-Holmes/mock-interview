@@ -5,7 +5,10 @@ export default styled.button`
 	height: ${50 / 16}rem;
 
 	color: ${(props) =>
-        props.color === "dark" || props.color === "primary" ? "white" : "black"};
+        props.color === "dark" || props.color === "primary" 
+            ? "white" 
+            : "black"
+};
 	background: ${(props) =>
         props.color ? props.theme.colors[props.color] : "transparent"};
 	font-size: ${(props) => props.theme.font["size-sm"]};
