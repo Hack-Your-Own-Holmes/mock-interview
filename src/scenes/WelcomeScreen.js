@@ -11,7 +11,7 @@ const WelcomeScreen = () => {
         See how you would do during an interview by practicing with our
         interview questions
             </p>
-            <Link to="/interview">
+            <Link to="/auth">
                 <Button color="primary">Let's Go</Button>
             </Link>
         </Welcome>
